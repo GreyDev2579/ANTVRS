@@ -24,7 +24,13 @@ def load_rules():
     if yara is None:
         return None
     files = {p.stem: str(p) for p in RULES_DIR.glob("*.yar")}
-    return yara.compile(filepaths=files) if files else None
+    if not files:
+        return None
+    try:
+        return yara.compile(filepaths=files)
+    except Exception as e:
+        print(f"YARA rules failed to compile: {e}")
+        return None
 
 
 SIGNATURES = load_signatures()
@@ -67,7 +73,9 @@ def scan_bytes(filename: str, data: bytes) -> dict:
         engines.append({"name": "YARA rules", "state": "active"})
         try:
             for m in RULES.match(data=data, timeout=30):
-                findings.append(f"Rule match: {m.rule}")
+                desc = m.meta.get("description", "")
+                sev = m.meta.get("severity", "medium")
+                findings.append(f"Rule match [{sev}]: {m.rule}" + (f" ({desc})" if desc else ""))
         except Exception:
             engines[-1]["state"] = "error"
     else:
