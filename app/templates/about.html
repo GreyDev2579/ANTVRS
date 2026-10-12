@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}How it works: ANTVRS{% endblock %}
+{% block content %}
+<h1>How it works</h1>
+<p>When you upload a file, ANTVRS computes its SHA-256 fingerprint and checks it against a list of known-malicious files. It also runs detection rules and, where available, the ClamAV engine.</p>
+
+<h2>Limitations</h2>
+<ul>
+  <li>No scanner detects all malware. New or custom malware often goes undetected.</li>
+  <li>A "no threats detected" result does not prove a file is safe.</li>
+  <li>Detection rules can produce false positives on legitimate files.</li>
+  <li>We do not run or open your file, so we cannot observe what it does.</li>
+  <li>The engines listed on each result page show exactly what was checked.</li>
+</ul>
+{% endblock %}

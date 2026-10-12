@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Check a file before you open it.</h1>
+  <p>Upload a file and we'll check it against known-malware signatures and detection rules. Files are scanned in memory and never stored.</p>
+</section>
+
+{% if error %}<div class="alert alert-bad">{{ error }}</div>{% endif %}
+
+<form class="upload" action="/scan" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" required>
+  <button type="submit">Scan file</button>
+  <p class="hint">Maximum size: {{ max_mb }} MB</p>
+</form>
+{% endblock %}

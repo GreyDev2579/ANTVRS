@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Scan result: ANTVRS{% endblock %}
+{% block content %}
+<h1>Scan result</h1>
+
+{% if r.verdict == "malicious" %}
+  <div class="alert alert-bad"><strong>Malicious.</strong> Do not open this file.</div>
+{% elif r.verdict == "suspicious" %}
+  <div class="alert alert-warn"><strong>Suspicious.</strong> Treat this file with caution.</div>
+{% else %}
+  <div class="alert alert-ok"><strong>No threats detected</strong> by the engines listed below. This does not guarantee the file is safe.</div>
+{% endif %}
+
+<div class="panel">
+  <p><strong>File:</strong> {{ r.filename }}</p>
+  <p><strong>Size:</strong> {{ r.size }} bytes</p>
+  <p><strong>SHA-256:</strong> <code>{{ r.sha256 }}</code></p>
+</div>
+
+{% if r.findings %}
+<div class="panel">
+  <h3>Findings</h3>
+  <ul>{% for f in r.findings %}<li>{{ f }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<div class="panel">
+  <h3>Engines used</h3>
+  <ul>{% for e in r.engines %}<li>{{ e.name }}: {{ e.state }}</li>{% endfor %}</ul>
+</div>
+
+<p><a class="btn" href="/">Scan another file</a></p>
+{% endblock %}

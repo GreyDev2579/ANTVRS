@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ANTVRS: Check a file before you open it{% endblock %}</title>
+  <meta name="description" content="{% block desc %}Upload a file and check it against malware signatures and detection rules before you open it.{% endblock %}">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="/">🛡️ ANTVRS</a>
+    <nav>
+      <a href="/">Scan a file</a>
+      <a href="/about">How it works</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>No scanner catches everything. A "no threats detected" result is not a guarantee that a file is safe.</p>
+    <p>&copy; ANTVRS &middot; <a href="/about">Limitations</a> &middot; <a href="/privacy">Privacy</a></p>
+  </footer>
+</body>
+</html>
